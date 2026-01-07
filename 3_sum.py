@@ -20,45 +20,28 @@ def three_sum(nums):
     output = []
     seen = set()
 
-    left = 0
-    right = len(nums) - 1
     i = 0
     sorted_nums = sorted(nums)
 
     while i < len(sorted_nums):
+        left = i + 1
+        right = len(sorted_nums) - 1
         while left < right:
-            sum = sorted_nums[i] + sorted_nums[left] + sorted_nums[right]
-            if left == i:
+            total = sorted_nums[i] + sorted_nums[left] + sorted_nums[right]
+            if total < 0:
                 left += 1
-            elif right == i:
+            elif total > 0:
                 right -= 1
-            elif sum < 0:
-                left += 1
-            elif sum > 0:
-                right -= 1
-            elif sum == 0:
-                canon = tuple(
-                    sorted([sorted_nums[i], sorted_nums[left], sorted_nums[right]])
-                )
+            elif total == 0:
+                candidate = [sorted_nums[i], sorted_nums[left], sorted_nums[right]]
+                canon = tuple(candidate)
                 if canon not in seen:
-                    seen.add(
-                        tuple(
-                            sorted(
-                                [
-                                    sorted_nums[i],
-                                    sorted_nums[left],
-                                    sorted_nums[right],
-                                ]
-                            )
-                        )
-                    )
+                    seen.add(tuple(candidate))
                     output.append(
                         [sorted_nums[i], sorted_nums[left], sorted_nums[right]]
                     )
                 left += 1
                 right -= 1
-        left = 0
-        right = len(nums) - 1
         i += 1
     return output
 
