@@ -18,6 +18,7 @@ def isBalanced(root):
 
         if abs(left - right) > 1:
             res = False
+            
 
         return 1 + max(left, right)
     dfs(root)
